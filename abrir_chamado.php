@@ -1,13 +1,4 @@
-<?php
-session_start();
-
-if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] != 'SIM'){
-  header('Location: index.php?login=erro2');
-}
-
-
-?>
-
+<? require_once"validador_acesso.php"?>
 
 <html>
   <head>
@@ -27,11 +18,16 @@ if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] != 'SIM'){
 
   <body>
 
-    <nav class="navbar navbar-dark bg-dark">
+  <nav class="navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">
         <img src="logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         App Help Desk
       </a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="logoff.php" class="nav-link">SAIR</a>
+        </li>
+      </ul>
     </nav>
 
     <div class="container">    
@@ -46,15 +42,15 @@ if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] != 'SIM'){
               <div class="row">
                 <div class="col">
                   
-                  <form>
+                  <form method="post" action="registra_chamado.php">
                     <div class="form-group">
                       <label>Título</label>
-                      <input type="text" class="form-control" placeholder="Título">
+                      <input name="titulo" type="text" class="form-control" placeholder="Título">
                     </div>
                     
                     <div class="form-group">
                       <label>Categoria</label>
-                      <select class="form-control">
+                      <select name="categoria" class="form-control">
                         <option>Criação Usuário</option>
                         <option>Impressora</option>
                         <option>Hardware</option>
@@ -65,12 +61,12 @@ if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] != 'SIM'){
                     
                     <div class="form-group">
                       <label>Descrição</label>
-                      <textarea class="form-control" rows="3"></textarea>
+                      <textarea name="descricao" class="form-control" rows="3"></textarea>
                     </div>
 
                     <div class="row mt-5">
                       <div class="col-6">
-                        <button class="btn btn-lg btn-warning btn-block" type="submit">Voltar</button>
+                        <a href="home.php" class="btn btn-lg btn-warning btn-block">Voltar</a>
                       </div>
 
                       <div class="col-6">

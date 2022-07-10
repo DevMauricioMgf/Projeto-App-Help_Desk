@@ -1,11 +1,11 @@
 <?php
 
     session_start();
-
+/* 
     $_SESSION['x'] = 'Oi, sou um valor de sessão!';
     print_r($_SESSION);
     echo '<hr>';
-    echo $_SESSION['y'] . '<br>';
+    echo $_SESSION['y'] . '<br>'; */
 
     //variavel que verifica se a autenticidade foi realizada
     $usuario_autenticidado = false;
@@ -35,25 +35,12 @@
     if($usuario_autenticidado){
         echo 'Usuário autenticado';
         $_SESSION['autenticado'] = 'SIM';
+        $_SESSION['x'] = 'um valor';
+        $_SESSION['y'] = 'outrto valor';
+        header('Location: home.php');
     } else{
         $_SESSION['autenticado'] = 'NAO';
         header('Location: index.php?login=erro');
     }
-    /* 
-    print_r($_GET);
 
-    echo '<br>';
-
-    echo $_GET['email'];
-    echo '<br>';
-    echo $_GET['senha'];
- */
-/* 
-    print_r ($_POST);
-
-    echo '<br>';
-
-    echo $_POST['email'];
-    echo '<br>';
-    echo $_POST['senha']; */
 ?>

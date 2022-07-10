@@ -1,14 +1,24 @@
-<?php
-session_start();
+<? require_once"validador_acesso.php"?>
 
-if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] != 'SIM'){
-  header('Location: index.php?login=erro2');
-}
+<?php
+
+  //chamados
+  $chamados = array();
+
+
+  $arquivo = fopen('arquivo.hd', 'r');
+  //enquanto ouver registros(linhas) e serem recuperados
+  while(!feof($arquivo)) { //testa pelo fim de um arquivo EOF
+    $registro = fgets($arquivo);
+    $chamados[] = $registro;
+    //linhas
+  }
+//fechar arquivo aberto
+
+fclose($arquivo);
 
 
 ?>
-
-
 
 <html>
   <head>
@@ -28,11 +38,16 @@ if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] != 'SIM'){
 
   <body>
 
-    <nav class="navbar navbar-dark bg-dark">
+  <nav class="navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">
         <img src="logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         App Help Desk
       </a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="logoff.php" class="nav-link">SAIR</a>
+        </li>
+      </ul>
     </nav>
 
     <div class="container">    
@@ -45,28 +60,31 @@ if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] != 'SIM'){
             </div>
             
             <div class="card-body">
-              
+
+
+            <? foreach($chamados as $chamado) { ?>
+
+              <?php
+                $chamado_dados = explode('#', $chamado);
+
+                if(count($chamado_dados)<3){
+                  continue;
+                };
+      
+              ?>
               <div class="card mb-3 bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">Título do chamado...</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
-                  <p class="card-text">Descrição do chamado...</p>
+              <div class="card-body">
+                <h5 class="card-title"><?=$chamado_dados[0]?></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><?=$chamado_dados[1]?></h6>
+                <p class="card-text"><?=$chamado_dados[2]?></p>
 
-                </div>
               </div>
-
-              <div class="card mb-3 bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">Título do chamado...</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
-                  <p class="card-text">Descrição do chamado...</p>
-
-                </div>
               </div>
+            <?}?>
 
               <div class="row mt-5">
                 <div class="col-6">
-                  <button class="btn btn-lg btn-warning btn-block" type="submit">Voltar</button>
+                  <a href="home.php" class="btn btn-lg btn-warning btn-block" type="submit">Voltar</a>
                 </div>
               </div>
             </div>
