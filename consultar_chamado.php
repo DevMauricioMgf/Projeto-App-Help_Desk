@@ -1,12 +1,11 @@
 <? require_once"validador_acesso.php"?>
 
 <?php
-
   //chamados
   $chamados = array();
 
 
-  $arquivo = fopen('arquivo.hd', 'r');
+  $arquivo = fopen('../../app_help_desk/arquivo.hd', 'r');
   //enquanto ouver registros(linhas) e serem recuperados
   while(!feof($arquivo)) { //testa pelo fim de um arquivo EOF
     $registro = fgets($arquivo);
@@ -67,6 +66,15 @@ fclose($arquivo);
               <?php
                 $chamado_dados = explode('#', $chamado);
 
+                //
+                if($_SESSION['perfil_id'] == 2) {
+                  
+                  //só vamos exibir o chamado se for criado pelo usuário
+                  if($_SESSION['id'] != $chamado_dados[0]){
+                    continue;
+                  }
+                }
+
                 if(count($chamado_dados)<3){
                   continue;
                 };
@@ -74,9 +82,9 @@ fclose($arquivo);
               ?>
               <div class="card mb-3 bg-light">
               <div class="card-body">
-                <h5 class="card-title"><?=$chamado_dados[0]?></h5>
-                <h6 class="card-subtitle mb-2 text-muted"><?=$chamado_dados[1]?></h6>
-                <p class="card-text"><?=$chamado_dados[2]?></p>
+                <h5 class="card-title"><?=$chamado_dados[1]?></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><?=$chamado_dados[2]?></h6>
+                <p class="card-text"><?=$chamado_dados[3]?></p>
 
               </div>
               </div>
